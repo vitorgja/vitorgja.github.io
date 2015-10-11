@@ -37,7 +37,7 @@ function main(){
 		}
 
 		if((nome!="")&&(email!="")&&(assunto!="")&&(msg!="")){
-			$.post("enviar.php", {
+			$.post("https://vitor-vitorgja.c9.io/portfolio/vitorgja.github.io/enviar.php", {
 				nome: nome, 
 				email: email, 
 				assunto: assunto, 

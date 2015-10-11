@@ -71,7 +71,7 @@
 			// $msg_body .= "\n$encoded_attach\r\n";
 			// $msg_body .= "--$limitador--\r\n";
 
-			return mail("vitor@vitorpereira.com.br","Um novo Cliente Contactou o Site vitorpereira.com.br",$msg_body, $mailheaders);
+			return mail("vitor_gja_@hotmail.com","Um novo Cliente Contactou o Site vitorgja.github.io",$msg_body, $mailheaders);
 		}
 	}
 	// debuug
