@@ -1,5 +1,6 @@
 $(main);
 function main(){
+	$(".hidden").hide();
 	$(".alert-success").hide();
 	$(".alert-danger").hide();
 	$("#enviar").click(function(){
