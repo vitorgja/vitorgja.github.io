@@ -17,6 +17,8 @@
     <meta name="generator" content="Vitor Pereira" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- CSS BOOTSTRAP DIALOG -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.5/css/bootstrap-dialog.min.css">
       <!--[if lt IE 9]>
         <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
@@ -187,9 +189,7 @@
         <!-- /END THE FEATURETTES -->
         <a id="contact"></a>
         <h2 class="text-center">Contato <small>Formulario para Contato</small></h2>
-        <br>
-        <div class="alert alert-success" role="alert"></div>
-        <div class="alert alert-danger" role="alert"></div>
+        
         <div class="container">
           <form role="form">
             <div class="col-md-5">
@@ -209,9 +209,9 @@
             <div class="col-md-7">
               <div class="form-group">
                 <label for="msg">Mensagem:</label>
-                <textarea type="msg" class="form-control" id="msg" name="msg" placeholder="Informe sua Mensagem"></textarea>
+                <textarea type="msg" class="form-control" id="msg" name="mensagem" placeholder="Informe sua Mensagem"></textarea>
               </div>
-              <a id="enviar" class="btn btn-default">Enviar</a>
+              <a id="enviar" class="btn btn-default" data-input="submit">Enviar</a>
             </div>
           </form>
 
@@ -223,7 +223,7 @@
           <!-- FOOTER -->
           <footer>
             <p class="pull-right"><a href="#">Voltar para o Topo</a></p>
-            <p class="hidden">
+            <p class="hcard">
               <div id="hcard-Vitor-Pereira-dos-Santos" class="vcard">
                 <a class="url fn n" href="http://vitorpereira.com.br">  <span class="given-name">Vitor</span>
                   <span class="additional-name">Pereira</span>
@@ -247,8 +247,12 @@
 
         </div><!-- /.container -->
         <!-- script references -->
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+        <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script> -->
+        
+        <script src="jquery/jquery-2.1.4.js"></script>
         <script src="js/bootstrap.min.js"></script>
+        <!-- JS BOOTSTRAP DIALOG -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.5/js/bootstrap-dialog.min.js"></script>
 
         <!-- <script src="js/layout.js"></script> -->
         <script src="https://vitor-vitorgja.c9.io/portfolio/vitorgja.github.io/js/layout.js"></script>

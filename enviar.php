@@ -1,12 +1,39 @@
 <?php
+
+	/**
+	*	@author Vitor Pereira
+	*	@contact vitor@vitorpereira.com.br
+	*	Dispara um email para o email do Site
+	**/
+
+	// ******************************************************************************
+
 	class Enviar {
-		private $nome,$email,$assunto,$mensagem;
-		public function __construct($nome,$email,$assunto,$mensagem){
+		private $nome,$email,$assunto,$mensagem, $para,$logo,$url;
+		
+		/**
+		*	Construtor da Classe Enviar / recebe os dados para montar o email
+		*	@param String
+		*	@param String
+		*	@param String
+		*	@param String
+		*	@param String
+		*	@param String
+		*	@return void
+		**/
+		public function __construct($nome,$email,$assunto,$mensagem, $para,$logo){
 			$this->nome = $nome;
 			$this->email = $email;
 			$this->assunto = $assunto;
 			$this->mensagem = $mensagem;
+			$this->para = $para;
+			$this->logo = $logo;
 		}
+		/**
+		*	Remove os caracteres especiais da String
+		*	@param	String
+		*	@return	String
+		*/
 		function remover_caracter($string) {
 		    $string = preg_replace("/[áàâãä]/", "a", $string);
 		    $string = preg_replace("/[ÁÀÂÃÄ]/", "A", $string);
@@ -24,6 +51,11 @@
 		    //$string = preg_replace("/ /", "_", $string);
 		    return $string;
 		}
+
+		/**
+		*	Monta a mensagem e a envia para o email
+		*	@return void
+		**/
 		public function enviar(){
 			$email = array(
 		   		'nome'=>$this->remover_caracter($this->nome),
@@ -31,11 +63,13 @@
 				'assunto'=>$this->remover_caracter($this->assunto),
 		  		'texto'=>$this->remover_caracter($this->mensagem)
 			);
-			$imagem_nome="imagem/logo.png";
-			$arquivo=fopen($imagem_nome,'r');
-			$contents = fread($arquivo, filesize($imagem_nome));
-			$encoded_attach = chunk_split(base64_encode($contents));
-			fclose($arquivo);
+			if( is_file($this->logo) ){
+				$imagem_nome=$this->logo;
+				$arquivo=fopen($imagem_nome,'r');
+				$contents = fread($arquivo, filesize($imagem_nome));
+				$encoded_attach = chunk_split(base64_encode($contents));
+				fclose($arquivo);
+			}
 			$limitador = "_=======". date('YmdHms'). time() . "=======_";
 
 			$mailheaders = "From: ".$email['email']."\r\n";
@@ -55,7 +89,7 @@
 					<p><strong>".$email['nome']."</strong>: Solicitou contato, sobre :<em>".$email['assunto']."</em></p>
 					<p>com a seguinte mensagem: <span>".$email['texto']."</span></p>
 					<p>email: ".$email['email']."</p>
-					<a href='http://www.vitorpereira.com.br'><font size=3>www.vitorpereira.com.br</font></a>
+					<a href='http://". $this->url ."'><font size=3>". $this->url ."</font></a>
 				</body>
 				</html>
 			";
@@ -63,23 +97,24 @@
 			$msg_body = "--$limitador\r\n";
 			$msg_body .= "Content-type: text/html; charset=iso-8859-1\r\n";
 			$msg_body .= "$texto";
-			
-			// $msg_body .= "--$limitador\r\n";
-			// $msg_body .= "Content-type: image/png; name=\"$imagem_nome\"\r\n";
-			// $msg_body .= "Content-Transfer-Encoding: base64\r\n";
-			// $msg_body .= "Content-ID: <$cid>\r\n";
-			// $msg_body .= "\n$encoded_attach\r\n";
-			// $msg_body .= "--$limitador--\r\n";
 
-			return mail("vitor_gja_@hotmail.com","Um novo Cliente Contactou o Site vitorgja.github.io",$msg_body, $mailheaders);
+			$emailPara = explode('@',$this->para)[1];
+			return mail($this->para ,"Um novo Cliente Contactou o Site ". $emailPara ,$msg_body, $mailheaders);
 		}
-	}
-	// debuug
-	// $_POST['nome'] = "aa";
-	// $_POST['email'] = "aa";
-	// $_POST['assunto'] = "aa";
-	// $_POST['mensagem'] = "aa";
+	} // Fim CLASSE ENVIAR
 
+
+
+	require_once "configuracao-enviar.php";
+	if($emailPara=="" || $imgLogo="" || $url=""){
+		$json = array(
+			'tipo'=>'erro-02',
+			'mensagem'=>'**** Preencher os Arquivos de Configuração do arquivo <strong>configuracao-enviar.php</strong>, para que o sistema funcione em Perfeitas Condições! ****'
+		);
+		echo json_encode($json);
+	}else 
+
+	// Caso Chegue os Campos Faça
 	if(	( isset($_POST['nome']) && $_POST['nome'] != null ) &&
 		( isset($_POST['email']) && $_POST['email'] != null ) &&
 		( isset($_POST['assunto']) && $_POST['assunto'] != null ) &&
@@ -89,15 +124,34 @@
 		$email 	 = $_POST['email'];
 		$assunto = $_POST['assunto'];
 		$mensagem   = $_POST['mensagem'];
-		$enviar = new Enviar($nome,$email,$assunto,$mensagem);
+
+		// Instancia o Objeto Enviar
+		$enviar = new Enviar($nome,$email,$assunto,$mensagem, $emailPara,$imgLogo ,$url);
+
+		// Se o metodo enviar tiver Sucesso Faça!
 		if( $enviar->enviar() ){
-			echo "true";
+			$json = array(
+				'tipo'=>'sucesso',
+				'mensagem'=>'Email enviado com Sucesso!'
+			);
+			echo json_encode($json);
+
+		// Se o metodo enviar não tiver Sucesso Faça!
 		}else{
-			echo "erro-1";
+			$json = array(
+				'tipo'=>'erro-01',
+				'mensagem'=>'Não foi possivel completar o envio Tente novamente'. $_POST['nome'] .'!'
+			);
+			echo json_encode($json);
 		}
 
+	// Caso não Chegue todos os Campos da erro!
 	}else{
-		echo "erro-2";
+		$json = array(
+			'tipo'=>'erro-02',
+			'mensagem'=>'Preencha todos os campos!'
+		);
+		echo json_encode($json);
 	}
-	
+
 ?>
