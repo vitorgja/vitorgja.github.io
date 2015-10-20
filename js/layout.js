@@ -9,7 +9,7 @@ function submit(){
 		$.ajax({
 			type: "POST",
 			url: "http://sifatec.esy.es/vitorgja.github.io/enviar.php",
-			dataType : "json",
+			dataType : "jsonp",
 			crossDomain: 'true',
 			data: {
 				nome: nome,
