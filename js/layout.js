@@ -8,7 +8,7 @@ function submit(){
 
 		$.ajax({
 			type: "POST",
-			url: "enviar.php",
+			url: "http://sifatec.esy.es/vitorgja.github.io/enviar.php",
 			dataType : "json",
 			data: {
 				nome: nome,
