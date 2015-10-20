@@ -36,6 +36,7 @@ function main(){
 		if(msg==""){
 			$("label[for=msg]").html('Mensagem:   <span class="text-red"><small>* Preencha o Campo Mensagem</small></span>');
 		}
+		
 
 		if((nome!="")&&(email!="")&&(assunto!="")&&(msg!="")){
 			$.post("http://sifatec.esy.es/vitorgja.github.io/enviar.php", {
