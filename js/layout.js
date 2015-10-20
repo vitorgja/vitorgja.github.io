@@ -16,6 +16,9 @@ function submit(){
 				assunto: assunto,
 				mensagem: mensagem
 			},
+			error: function (jqXHR, textStatus, errorThrown) {
+            	console.log(jqXHR)
+        	},
 			success: function(data){
 				if(data.tipo == "sucesso"){	// Enviou
 					BootstrapDialog.show({
