@@ -1,6 +1,6 @@
 function submit(){
 	// BOTÂO DE ENVIAR
-	$("button[data-input=submit], input[data-input=submit]").click(function(){
+	$("button[data-input=submit], input[data-input=submit],a[data-input=submit]").click(function(){
 		var nome = $("input[name='nome']").val();
 		var email = $("input[name='email']").val();
 		var assunto = $("input[name='assunto'], select[name='assunto']").val();
