@@ -10,6 +10,7 @@ function submit(){
 			type: "POST",
 			url: "http://sifatec.esy.es/vitorgja.github.io/enviar.php",
 			dataType : "json",
+			crossDomain: 'true',
 			data: {
 				nome: nome,
 				email: email,
