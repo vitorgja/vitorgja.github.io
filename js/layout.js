@@ -20,8 +20,8 @@ function submit(){
 			error: function (jqXHR, textStatus, errorThrown) {
             	console.log(jqXHR);
             	
-            	var msgErro = 'Deu um erro na comunicação com o servidor de email.<br>';
-            	msgErro += 'Desculpe o Transtorno, Tente novamente mais tarde ou envie um email direto';
+            	var msgErro = '<strong>Deu um erro na comunicação com o servidor de email.</strong><br>';
+            	msgErro += 'Desculpe o Transtorno, Tente novamente mais tarde ou envie um email direto para ';
             	msgErro += '<a href="mailto:vitor_gja_@hotmail.com">vitor_gja_@hotmail.com</a>';
             	
             	BootstrapDialog.show({
