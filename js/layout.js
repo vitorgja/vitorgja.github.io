@@ -18,7 +18,17 @@ function submit(){
 				mensagem: mensagem
 			},
 			error: function (jqXHR, textStatus, errorThrown) {
-            	console.log(jqXHR)
+            	console.log(jqXHR);
+            	
+            	var msgErro = 'Deu um erro na comunicação com o servidor de email.<br>';
+            	msgErro += 'Desculpe o Transtorno, Tente novamente mais tarde ou envie um email direto';
+            	msgErro += '<a href="mailto:vitor_gja_@hotmail.com">vitor_gja_@hotmail.com</a>';
+            	
+            	BootstrapDialog.show({
+					title: 'Erro',
+					type: BootstrapDialog.TYPE_DANGER, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
+					message: msgErro
+				});
         	},
 			success: function(data){
 				if(data.tipo == "sucesso"){	// Enviou
