@@ -103,6 +103,7 @@
 		}
 	} // Fim CLASSE ENVIAR
 
+	header('Content-Type: application/json');
 
 
 	require_once "configuracao-enviar.php";
