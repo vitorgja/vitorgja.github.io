@@ -9,7 +9,7 @@ function submit(){
 		$.ajax({
 			type: "POST",
 			method: "POST",
-			url: "http://vitorgja.github.io/enviar.php",
+			url: "http://vitorpereira.com.br/enviar.php",
 			dataType : "jsonp",
 			crossDomain: 'true',
 			data: {
