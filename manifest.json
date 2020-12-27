@@ -1,0 +1,9 @@
+{
+    "name": "Vitor Pereira",
+    "short_name": "vitor-pereira",
+    "theme_color": "#2c3038",
+    "background_color": "#2c3038",
+    "display": "browser",
+    "scope": "/",
+    "start_url": "/"
+}
